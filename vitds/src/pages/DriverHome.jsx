@@ -1,10 +1,12 @@
 import React from 'react'
+import NavbarComponent from '../components/NavbarComponent'
 
 const DriverHome = () => {
   return (
   <>
-    <div>DriverHome</div>
-    <h1>this is the driver home page for the react router dom.</h1>
+    <NavbarComponent/>
+    {/* <div>DriverHome</div>
+    <h1>this is the driver home page for the react router dom.</h1> */}
   </>
   )
 }
