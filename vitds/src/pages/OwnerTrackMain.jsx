@@ -1,67 +1,20 @@
-import React, { useEffect, useRef,useState } from "react";
+import CardComponent from "../components/CardComponent";
 import NavbarComponent from "../components/NavbarComponent";
 
-
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-
-
 function OwnerTrackMain() {
-
-    const [show,toggleShow]=useState(false);
-
-  const videoRef = useRef(null);
-
-  useEffect(() => {
-    // getVideo();
-    // startVdo();
-  }, [videoRef]);
-
-  const startVdo=() =>{
-    getVideo();
-  }
-
-  const getVideo = () => {
-    navigator.mediaDevices
-        .getUserMedia({ video: true,audio: true })
-        .then(stream => {
-        let video = videoRef.current;
-        video.srcObject = stream;
-        video.play();
-        })
-        .catch(err => {
-        console.error("error:", err);
-      });
-  };
-
-  const stopVideo = ()=>{
-    let videoElem=videoRef.current;
-    const stream = videoElem.srcObject;
-    const tracks = stream.getTracks();
-
-    tracks.forEach((track) => {
-    track.stop();
-  });
-//   videoElem.srcObject = null;
-  }
-
   return (
-  <>
-  <NavbarComponent/>
-  <div className="container media-heading">
-        <video className="center-block " ref={videoRef} />
-    <div className="center-block media-body">
-        <button className="btn bg-primary center-block" onClick={()=>{
-            toggleShow(!show);
-            {show ?   stopVideo():startVdo()}
-        }}>
-            {show ? "Stop": "Start"}
-        </button>
-    </div>
-  </div>
-  </>
-  )
+    <>
+      <NavbarComponent />
+      <div className="container">
+        <CardComponent carNo="DL01AB2903" threat={true} location="MG Road"/>
+        <CardComponent carNo="HR03BT3967" threat={true} location="Grand Trunk Road"/>
+        <CardComponent carNo="WB32AP1234" threat={false} location="Kali Asthan"/>
+        <CardComponent carNo="BR22TP5434" threat={false} location="Dak bunlow"/>
+        <CardComponent carNo="UP13AD1784" threat={false} location="Kashi Vishwanath Road"/>
+        <CardComponent carNo="WB05YL6234" threat={false} location="Victoria Palace"/>
+      </div>
+    </>
+  );
 }
 
-export default OwnerTrackMain
+export default OwnerTrackMain;

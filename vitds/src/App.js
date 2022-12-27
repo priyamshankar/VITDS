@@ -8,8 +8,8 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<DriverHome/>}/>
-          <Route path="/track" element={<OwnerTrackMain/>}/>
+          <Route path="/track" element={<DriverHome/>}/>
+          <Route path="/" element={<OwnerTrackMain/>}/>
         </Routes>
       </BrowserRouter>
     </>
