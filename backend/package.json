@@ -1,5 +1,6 @@
 {
-  "dependencies": {
+"proxy": "http://localhost:3000",
+    "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.2"
   },
