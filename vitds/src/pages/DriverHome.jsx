@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import NavbarComponent from "../components/NavbarComponent";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { actionCreators } from "../state/index";
+// import { useDispatch } from "react-redux";
+// import { actionCreators } from "../state/index";
 import Webcam from "react-webcam";
 
 const DriverHome = () => {
   const [show, toggleShow] = useState(false);
   const [isThreat, setisThreat] = useState("false");
   const vehicleNo = "WB32AP1234";
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   
 //webcam starts here function
 
@@ -28,7 +28,7 @@ const DriverHome = () => {
   useEffect(() => {
     const setRequestInterval = setInterval(() => {
       temp();
-      console.log("hello");
+      // console.log("hello");
     }, 2000);
     return () => {
     };
@@ -37,9 +37,9 @@ const DriverHome = () => {
   useEffect(() => {
     return () => {
       if (isThreat) {
-        dispatch(actionCreators.threat(vehicleNo));
+        // dispatch(actionCreators.threat(vehicleNo));
       } else {
-        dispatch(actionCreators.threat("false"));
+        // dispatch(actionCreators.threat("false"));
       }
     };
   }, [isThreat]);

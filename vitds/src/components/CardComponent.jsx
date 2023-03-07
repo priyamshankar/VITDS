@@ -5,10 +5,10 @@ import Card from 'react-bootstrap/Card';
 function CardComponent(props) {
   const [threat,setThreat]=useState(false);
   useEffect(() => { 
+    if(props.carNo === props.store){
+      setThreat(true);
+    }
     return () => {
-      if(props.carNo === props.store){
-        setThreat(true);
-      }
     }
   }, [props.store])
   
