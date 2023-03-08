@@ -24,26 +24,41 @@ const DriverHome = () => {
   }, [webcamRef, setImgSrc]);
 
 
-  const fetchRes = async () => {
+  // const fetchRes = async () => {
 
-    await axios.get("http://localhost:8080/ifThreat")
-      .then((response) => {
-        console.count("Data", response.data?.message);
-        setisThreat(response.data.message);
-      }).catch((err) => {
-        console.log("Error received:", err);
-      });
+  //   await axios.get("http://localhost:8080/ifThreat")
+  //     .then((response) => {
+  //       console.count("Data", response.data?.message);
+  //       setisThreat(response.data.message);
+  //     }).catch((err) => {
+  //       console.log("Error received:", err);
+  //     });
 
-  }
+  // }
 
   //webcam ends here 
   // this use effect will take place at mounting
   useEffect(() => {
-    setInterval(fetchRes, 5000);
+    console.log("Adding new interval");
+    const timer = setInterval(() => {
+
+      axios.get("http://localhost:8080/ifThreat")
+      .then((response) => {
+        console.log("Data", response);
+        setisThreat(response.data.message);
+        console.log("New value of is threat: ", isThreat);
+      }).catch((err) => {
+        console.log("Error received:", err);
+      });
+
+    }, 5000);
+
+
     return () => {
       console.log("Previous set interval is cleared");
-      clearInterval();
+      clearInterval(timer);
     };
+
   });
 
   useEffect(() => {
