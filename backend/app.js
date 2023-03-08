@@ -1,15 +1,24 @@
-var http = require('http');
-const express = require ('express');
-const userRoutes = require('./routes/userRoutes');
-const apiRoutes = require('./routes/apiRoute');
 require("dotenv").config();
+const express = require ('express');
+const ifThreat = require('./routes/ifThreat')
+const noThreat = require('./routes/noThreat')
 
 const app = express();
 
-const server = app.listen(process.env.PORT,()=>{
-    console.log(`localhost is connected at ${process.env.PORT}`);
+// Calling the express.json() method for parsing
+app.use(express.json());
+
+app.get('/', (req, res) => {
+    res.status(200).json({
+        success: 1,
+        message: "Welcome to Threat Detection Model"
+    })
 })
 
-//if the path starts from "/api/postpic" then do according to the apiRoute's router
-app.use('/api/postpic',apiRoutes);
-// app.use(router);
+app.use('/ifThreat', ifThreat);
+app.use('/noThreat', noThreat);
+
+
+app.listen(process.env.PORT | 8080,() => {
+    console.log(`localhost is connected at ${process.env.PORT}`);
+})
