@@ -3,6 +3,9 @@ const express = require ('express');
 const ifThreat = require('./routes/ifThreat')
 const noThreat = require('./routes/noThreat')
 const mlModel = require('./routes/getPythonMsg')
+const getAlldriver = require('./routes/getAlldriver')
+const getAllCars = require('./routes/getAllCars');
+const getAllMerchant = require('./routes/getAllMerchant');
 
 const app = express();
 
@@ -19,6 +22,9 @@ app.get('/', (req, res) => {
 app.use('/ifThreat', ifThreat);
 app.use('/noThreat', noThreat);
 app.use('/mlModel', mlModel);
+app.use('/driver', getAlldriver);
+app.use('/cars', getAllCars);
+app.use('/merchant', getAllMerchant);
 
 
 app.listen(process.env.PORT | 8080,() => {
