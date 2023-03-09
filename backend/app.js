@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require ('express');
 const ifThreat = require('./routes/ifThreat')
 const noThreat = require('./routes/noThreat')
+const mlModel = require('./routes/getPythonMsg')
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.get('/', (req, res) => {
 
 app.use('/ifThreat', ifThreat);
 app.use('/noThreat', noThreat);
+app.use('/mlModel', mlModel);
 
 
 app.listen(process.env.PORT | 8080,() => {
