@@ -1,17 +1,17 @@
-import React,{useState} from "react";
-import './css/DriverLocation/DriverLocation.css';
+import React, { useState } from "react";
+import "./css/DriverLocation/DriverLocation.css";
 import NavbarComponent from "../components/NavbarComponent";
+import driverImageInfowindow from "./css/DriverLocation/student.jpg";
+import iconSelect from "./css/DriverLocation/iconSelect.png";
+import iconNotSelect from "./css/DriverLocation/iconNotSelect.png"; 
+
 import {
   GoogleMap,
-  useLoadScript,
+  InfoWindow,
   Marker,
+  MarkerF,
   useJsApiLoader,
 } from "@react-google-maps/api";
-
-const center = {
-  lat: 26.893833,
-  lng: 80.942574,
-};
 
 let driversNearMe = [
   {
@@ -22,7 +22,8 @@ let driversNearMe = [
       lng: 80.946167,
     },
     ind: 0,
-    no:"DL01AB2903"
+    no: "DL01AB2903",
+    Distance: 1,
   },
   {
     name: "steve",
@@ -32,7 +33,8 @@ let driversNearMe = [
       lng: 80.923526,
     },
     ind: 1,
-    no:"HR03BT3967"
+    no: "HR03BT3967",
+    Distance: 2,
   },
   {
     name: "josh",
@@ -42,17 +44,21 @@ let driversNearMe = [
       lng: 80.942516,
     },
     ind: 2,
-    no:"WB32AP1234"
-  },{
+    no: "WB32AP1234",
+    Distance: 4,
+  },
+  {
     name: "John Doe",
     id: "nearme113",
     loc: {
-      lat: 26.846400,
-      lng: 80.946200,
+      lat: 26.8464,
+      lng: 80.9462,
     },
     ind: 3,
-    no:"BR22TP5434"
-  },{
+    no: "BR22TP5434",
+    Distance: 2,
+  },
+  {
     name: "John Doe",
     id: "nearme114",
     loc: {
@@ -60,16 +66,19 @@ let driversNearMe = [
       lng: 80.9469876,
     },
     ind: 4,
-    no:"UP13AD1784"
-  },{
+    no: "UP13AD1784",
+    Distance: 10,
+  },
+  {
     name: "John Doe",
     id: "nearme115",
     loc: {
       lat: 26.846098,
-      lng: 80.946000,
+      lng: 80.946,
     },
     ind: 5,
-    no:"WB05YL6234"
+    no: "WB05YL6234",
+    Distance: 7,
   },
 ];
 
@@ -77,6 +86,8 @@ const DriversLocation = () => {
   const [currentSelected, setcurrentSelected] = useState();
   const [driverdata, setdriverData] = useState(driversNearMe);
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
+  const [selectedMarker, setSelectedMarker] = useState(null);
+  const [mapCenter, setmapCenter] = useState(driverdata[0].loc);
 
   //**** google map api changes starts here ....****
 
@@ -90,22 +101,52 @@ const DriversLocation = () => {
 
   return (
     <div>
-      <NavbarComponent/>
+      <NavbarComponent />
       <GoogleMap
-        center={center}
+        center={mapCenter}
         zoom={15}
         mapContainerStyle={{ width: "100vw", height: "90vh" }}
         onLoad={(map) => setMap(map)}
       >
         {driverdata &&
           driverdata.map((mark, index) => {
-            // <div key={mark.id}>
-            <Marker position={driverdata[index].loc} />; // here is the problem markers are not loading when fetched from nearmestudentdata.map
-            // </div>;
+            return (
+              <div key={mark.id}>
+                <MarkerF
+                  position={driverdata[index].loc}
+                  onClick={() => {
+                    setSelectedMarker(mark);
+                    setcurrentSelected(mark.id);
+                  }}
+                  options={{
+                    icon:
+                      mark.id == currentSelected ? iconSelect : iconNotSelect,
+                  }}
+                />
+                ;
+              </div>
+            );
           })}
-        <Marker position={driverdata[0].loc} /> // here marker is working
-        but inside NearmeStudentData.map it is not working
-        {/* <Marker position={center} options={{icon: dotImage}}/> */}
+        {selectedMarker && (
+          <InfoWindow
+            position={selectedMarker.loc}
+            onCloseClick={() => {
+              setSelectedMarker(null);
+            }}
+          >
+            <>
+              <div className="InfoWindowContainer">
+                <img src={driverImageInfowindow} alt="driver image" />
+                <div className="infowindowTextContainer">
+                  <div className="infowindowName">{selectedMarker.name}</div>
+                  <div className="infowindowDistance">
+                    {selectedMarker.Distance} KM Away
+                  </div>
+                </div>
+              </div>
+            </>
+          </InfoWindow>
+        )}
       </GoogleMap>
 
       <div className="button-container">
@@ -120,9 +161,10 @@ const DriversLocation = () => {
             onClick={() => {
               setcurrentSelected(button.id);
               map.panTo(button.loc);
+              // map.setZoom();
             }}
           >
-            {button.no} 
+            {button.no}
           </button>
         ))}
       </div>
