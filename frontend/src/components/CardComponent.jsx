@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 function CardComponent(props) {
   const [threat,setThreat]=useState(false);
   useEffect(() => { 
-    if(props.carNo === props.store){
+    if(props.carNo === "WB32AP1234"){
       setThreat(true);
     }
     return () => {
