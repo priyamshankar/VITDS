@@ -19,7 +19,7 @@ function OwnerTrackMain() {
         <CardComponent carNo="HR03BT3967"  location="Grand Trunk Road"/>
         <CardComponent carNo="WB32AP1234"  location="Kali Asthan"/>
         <CardComponent carNo="BR22TP5434"  location="Dak bunlow"/>
-        <CardComponent carNo="UP13AD1784"  location="Kashi Vishwanath Road"/>
+        <CardComponent carNo="UP13AD1784"  location="MG Road"/>
         <CardComponent carNo="WB05YL6234"  location="Victoria Palace"/>
       </div>
     </>

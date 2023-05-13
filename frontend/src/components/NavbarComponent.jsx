@@ -3,16 +3,17 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
+
 const NavbarComponent = () => {
   return (
-    <Navbar collapseOnSelect expand="lg"  variant="light" className='bg-warning'>
+    <Navbar collapseOnSelect expand="lg"  variant="dark" className='bg-dark'>
       <Container>
-        <Navbar.Brand href="/">Vehicle Threat Detection System</Navbar.Brand>
+        <Navbar.Brand href="/">Vehicle Threat Detection System</Navbar.Brand>&nbsp;
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/track" className='bg-light btn'>Driver Page</Nav.Link>
-            <Nav.Link href="/location" className='bg-light btn'>Track</Nav.Link>
+            <Nav.Link href="/track" className='bg-dark btn'>Driver Page</Nav.Link>{"  "}
+            <Nav.Link href="/location" className='bg-dark btn'>Track</Nav.Link>
             {/* <Nav.Link href="#pricing">Pricing</Nav.Link> */}
             {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

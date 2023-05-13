@@ -120,7 +120,7 @@ const DriversLocation = () => {
                   }}
                   options={{
                     icon:
-                      mark.id == currentSelected ? iconSelect : iconNotSelect,
+                      mark.id === currentSelected ? iconSelect : iconNotSelect,
                   }}
                 />
                 ;
@@ -154,7 +154,7 @@ const DriversLocation = () => {
           <button
             key={button.id}
             className={
-              button.id == currentSelected
+              button.id === currentSelected
                 ? "button-selected"
                 : "button-unselected"
             }
