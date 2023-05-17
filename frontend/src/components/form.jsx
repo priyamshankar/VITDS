@@ -36,7 +36,7 @@ const BasicForm = () => {
             </div>  
 
             <div className = "form-box">
-                <label className='form-label' htmlFor="driverID">Vehicle Registration</label>{" "}  
+                <label className='form-label' htmlFor="driverID">Vehicle Registration No.</label>{" "}  
                     <input className='form-input' type="driverID" name="driverID" id="driverID" autoComplete="off"
                         value={password}
                           onChange={(e) => setPassword(e.target.value)}
