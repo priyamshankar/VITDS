@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState,useCallback, } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSocket } from "../Context/SocketProvider";
 import NavbarComponent from "../components/NavbarComponent";
 // import { useDispatch } from "react-redux";
 // import { actionCreators } from "../state/index";
@@ -102,12 +104,45 @@ const DriverHome = () => {
   };
 
 
+  // ********************* web rtc code starts from here &&*&&^&^&^&^*^*^*&^*^*^**************
+
+  const [email, setEmail] = useState("");
+  const [room, setRoom] = useState("DL01AB2903");
+
+  const socket = useSocket();
+  const navigate = useNavigate();
+
+  const handleSubmitForm = useCallback(
+    (e) => {
+      e.preventDefault();
+      socket.emit("room:join", { email, room });
+    },
+    [email, room, socket]
+  );
+
+  const handleJoinRoom = useCallback(
+    (data) => {
+      const { email, room } = data;
+      navigate(`/room/${room}`);
+    },
+    [navigate]
+  );
+
+  useEffect(() => {
+    socket.on("room:join", handleJoinRoom);
+    return () => {
+      socket.off("room:join", handleJoinRoom);
+    };
+  }, [socket, handleJoinRoom]);
+
+
   return (
     <>
       <NavbarComponent />
-      <div className="container media-heading">
+      <h1>DL01AB2903</h1>
+      {/* <div className="container media-heading"> */}
         {/* <video className="center-block " ref={videoRef} /> */}
-        <div className="center-block media-body">
+        {/* <div className="center-block media-body">
           <button
             className="btn bg-primary center-block"
             onClick={() => {
@@ -117,19 +152,21 @@ const DriverHome = () => {
           >
             {show ? "Stop" : "Start"}
           </button>
-        </div>
-      </div>
-      <Webcam
+        </div> */}
+      {/* </div> */}
+      {/* <Webcam
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
-      />
-      <button onClick={capture}>Capture photo</button>
+      /> */}
+      {/* <button onClick={capture}>Capture photo</button>
       {imgSrc && (
         <img alt="imgsrc"
           src={imgSrc}
         />
-      )}
+      )} */}
+
+
     </>
   );
 };
