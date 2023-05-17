@@ -5,14 +5,20 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { store } from './redux/store'
 // import { store } from "./state/store";
+import BasicForm from "./components/form";
+// import './App.css';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  //   <Provider store={store}>
+  //     <App />
+  //   </Provider>
+  // </React.StrictMode>
+  <BasicForm>
+
+  </BasicForm>
+
 );
 
 // If you want to start measuring performance in your app, pass a function
