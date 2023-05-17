@@ -4,6 +4,8 @@ import { useSocket } from "../Context/SocketProvider";
 import NavbarComponent from "../components/NavbarComponent";
 import ReactPlayer from "react-player";
 import peer from "../service/peer";
+import cam from "../globalRes/cam.png";
+import "./css/DriverHome.css";
 // import { useDispatch } from "react-redux";
 // import { actionCreators } from "../state/index";
 import Webcam from "react-webcam";
@@ -108,21 +110,16 @@ const DriverHome = () => {
   const socket = useSocket();
   const navigate = useNavigate();
 
-  const handleSubmitForm = useCallback(
-    () => {
-      socket.emit("room:join", { email, room });
-    },
-    [email, room, socket]
-  );
+  const handleSubmitForm = useCallback(() => {
+    socket.emit("room:join", { email, room });
+  }, [email, room, socket]);
 
   useEffect(() => {
-    handleSubmitForm(); 
-    return()=>{
+    handleSubmitForm();
+    return () => {
       // handleSubmitForm();
-    }
-  }, [])
-  
-  
+    };
+  }, []);
 
   const handleJoinRoom = useCallback(
     (data) => {
@@ -249,10 +246,11 @@ const DriverHome = () => {
   return (
     <>
       <NavbarComponent />
-      <h1>DL01AB2903</h1>
-      {/* <div className="container media-heading"> */}
-      {/* <video className="center-block " ref={videoRef} /> */}
-      {/* <div className="center-block media-body">
+      <div className="DriverNamecontainer">
+        <h1>{room}</h1>
+        {/* <div className="container media-heading"> */}
+        {/* <video className="center-block " ref={videoRef} /> */}
+        {/* <div className="center-block media-body">
           <button
             className="btn bg-primary center-block"
             onClick={() => {
@@ -263,34 +261,42 @@ const DriverHome = () => {
             {show ? "Stop" : "Start"}
           </button>
         </div> */}
-      {/* </div> */}
-      {/* <Webcam
+        {/* </div> */}
+        {/* <Webcam
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
       /> */}
-      {/* <button onClick={capture}>Capture photo</button>
+        {/* <button onClick={capture}>Capture photo</button>
       {imgSrc && (
         <img alt="imgsrc"
           src={imgSrc}
         />
       )} */}
-      <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-      {myStream && <button onClick={sendStreams}>Send Stream</button>}
-      {remoteSocketId && <button onClick={handleCallUser}>CALL</button>}
-      {myStream && (
-        <>
-          <h1>My Stream</h1>
-          <ReactPlayer
-            playing
-            muted
-            height="100px"
-            width="200px"
-            url={myStream}
-          />
-        </>
-      )}
-      {remoteStream && (
+        <div className="driverHomeNocam">
+          {remoteSocketId && !myStream ? (
+            <>
+              <img src={cam} alt="camera image" />
+              <p>Driver cam Not available</p>
+            </>
+          ) : (
+            <p>Showing the live feed</p>
+          )}
+        </div>
+        {/* {myStream && <button onClick={sendStreams}>Send Stream</button>} */}
+        {/* {remoteSocketId && <button onClick={handleCallUser}>CALL</button>} */}
+        {myStream && (
+          <div className="videoFeedDriverHome">
+            <ReactPlayer
+              playing
+              muted
+              height="500px"
+              width="800px"
+              url={myStream}
+            />
+          </div>
+        )}
+        {/* {remoteStream && (
         <>
           <h1>Remote Stream</h1>
           <ReactPlayer
@@ -301,9 +307,10 @@ const DriverHome = () => {
             url={remoteStream}
           />
         </>
-      )}
-      {/* <form></form>
+      )} */}
+        {/* <form></form>
       <button>click</button> */}
+      </div>
     </>
   );
 };
