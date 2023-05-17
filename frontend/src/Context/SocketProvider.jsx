@@ -9,7 +9,7 @@ export const useSocket = () => {
 };
 
 export const SocketProvider = (props) => {
-  const socket = useMemo(() => io("localhost:8001"), []);
+  const socket = useMemo(() => io("localhost:8005"), []);
 
   return (
     <SocketContext.Provider value={socket}>

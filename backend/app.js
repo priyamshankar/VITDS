@@ -36,7 +36,7 @@ app.listen(process.env.PORT | 8080,() => {
 
 const { Server } = require("socket.io");
 
-const io = new Server(8001, {
+const io = new Server(8005, {
   cors: true,
 });
 
