@@ -1,12 +1,46 @@
 import React, { useEffect, useCallback, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import peer from "../service/peer";
 import { useSocket } from "../Context/SocketProvider";
 
 const SurveliancePage = () => {
-  const carNo = useParams();
+  const [email, setEmail] = useState("");
+  const [room, setRoom] = useState("DL01AB2903");
+
   const socket = useSocket();
+  const navigate = useNavigate();
+
+  const handleSubmitForm = useCallback(() => {
+    socket.emit("room:join", { email, room });
+  }, [email, room, socket]);
+
+  useEffect(() => {
+    handleSubmitForm();
+    return () => {
+      // handleSubmitForm();
+    };
+  }, []);
+
+  const handleJoinRoom = useCallback(
+    (data) => {
+      const { email, room } = data;
+    //   navigate(`/track/${room}`);
+    },
+    [navigate]
+  );
+
+  useEffect(() => {
+    socket.on("room:join", handleJoinRoom);
+    return () => {
+      socket.off("room:join", handleJoinRoom);
+    };
+  }, [socket, handleJoinRoom]);
+
+  // &&&&&&&&&&&&&&&&************************ partition ********************&&&&&&&&&&&&
+
+  const carNo = useParams();
+//   const socket = useSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
@@ -114,6 +148,33 @@ const SurveliancePage = () => {
   return (
     <div>
       <h1>{carNo.carRegNo}</h1>
+      <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
+      {myStream && <button onClick={sendStreams}>Send Stream</button>}
+      {remoteSocketId && <button onClick={handleCallUser}>CALL</button>}
+      {myStream && (
+        <>
+          <h1>My Stream</h1>
+          <ReactPlayer
+            playing
+            muted
+            height="100px"
+            width="200px"
+            url={myStream}
+          />
+        </>
+      )}
+      {remoteStream && (
+        <>
+          <h1>Remote Stream</h1>
+          <ReactPlayer
+            playing
+            muted
+            height="100px"
+            width="200px"
+            url={remoteStream}
+          />
+        </>
+      )}
     </div>
   );
 };

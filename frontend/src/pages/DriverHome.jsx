@@ -109,17 +109,25 @@ const DriverHome = () => {
   const navigate = useNavigate();
 
   const handleSubmitForm = useCallback(
-    (e) => {
-      e.preventDefault();
+    () => {
       socket.emit("room:join", { email, room });
     },
     [email, room, socket]
   );
 
+  useEffect(() => {
+    handleSubmitForm(); 
+    return()=>{
+      // handleSubmitForm();
+    }
+  }, [])
+  
+  
+
   const handleJoinRoom = useCallback(
     (data) => {
       const { email, room } = data;
-      navigate(`/room/${room}`);
+      // navigate(`/track/${room}`);
     },
     [navigate]
   );
@@ -294,6 +302,8 @@ const DriverHome = () => {
           />
         </>
       )}
+      {/* <form></form>
+      <button>click</button> */}
     </>
   );
 };
