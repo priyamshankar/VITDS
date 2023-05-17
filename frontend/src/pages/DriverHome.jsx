@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSocket } from "../Context/SocketProvider";
 import NavbarComponent from "../components/NavbarComponent";
 import ReactPlayer from "react-player";
@@ -13,6 +13,7 @@ import Webcam from "react-webcam";
 import axios from "axios";
 
 const DriverHome = () => {
+  const carNo = useParams();
   const [show, toggleShow] = useState(false);
   const [isThreat, setisThreat] = useState(null);
   // const vehicleNo = "WB32AP1234";
@@ -247,7 +248,7 @@ const DriverHome = () => {
     <>
       <NavbarComponent />
       <div className="DriverNamecontainer">
-        <h1>{room}</h1>
+        <h1>{carNo.carRegNo}</h1>
         {/* <div className="container media-heading"> */}
         {/* <video className="center-block " ref={videoRef} /> */}
         {/* <div className="center-block media-body">

@@ -1,8 +1,10 @@
 import React, { useEffect, useCallback, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import peer from "../service/peer";
 import { useSocket } from "../Context/SocketProvider";
+import "./css/survelliance.css";
+import NavbarComponent from "../components/NavbarComponent";
 
 const SurveliancePage = () => {
   const [email, setEmail] = useState("");
@@ -25,7 +27,7 @@ const SurveliancePage = () => {
   const handleJoinRoom = useCallback(
     (data) => {
       const { email, room } = data;
-    //   navigate(`/track/${room}`);
+      //   navigate(`/track/${room}`);
     },
     [navigate]
   );
@@ -39,8 +41,7 @@ const SurveliancePage = () => {
 
   // &&&&&&&&&&&&&&&&************************ partition ********************&&&&&&&&&&&&
 
-  const carNo = useParams();
-//   const socket = useSocket();
+  //   const socket = useSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
@@ -146,34 +147,38 @@ const SurveliancePage = () => {
   ]);
 
   return (
-    <div>
-      <h1>{carNo.carRegNo}</h1>
-      <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-      {myStream && <button onClick={sendStreams}>Send Stream</button>}
-      {remoteSocketId && <button onClick={handleCallUser}>CALL</button>}
+    <div className="SurveliancePageContainer">
+      <NavbarComponent/>
+      <h1>{room}</h1>
+      
+      {!myStream ? (
+        <div className="survelliancebtn">
+          <a className="imgSurv"
+            href="https://www.freepnglogos.com/pics/camera-logo-hd"
+            title="Image from freepnglogos.com"
+          >
+            <img
+              src="https://www.freepnglogos.com/uploads/camera-logo-png/flat-camera-circle-icon-transparent-vector-21.png"
+              width="500"
+              alt="flat camera circle icon transparent vector"
+            />
+          </a>
+          <button onClick={handleCallUser}>Start Streaming</button>
+        </div>
+      ) : (
+        <h2>Streaming</h2>
+      )}
+
       {myStream && (
-        <>
-          <h1>My Stream</h1>
+        <div className="streamSurv">
           <ReactPlayer
             playing
             muted
-            height="100px"
-            width="200px"
+            height="500px"
+            width="800px"
             url={myStream}
           />
-        </>
-      )}
-      {remoteStream && (
-        <>
-          <h1>Remote Stream</h1>
-          <ReactPlayer
-            playing
-            muted
-            height="100px"
-            width="200px"
-            url={remoteStream}
-          />
-        </>
+        </div>
       )}
     </div>
   );
