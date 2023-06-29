@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
-
+import {Link, useNavigate} from 'react-router-dom';
 
 function CardComponent(props) {
+
+  const navigate = useNavigate();
+
+
   const [threat,setThreat]=useState(false);
   useEffect(() => { 
-    if(props.carNo === props.store){
+    if(props.carNo === "WB32AP1234"){
       setThreat(true);
     }
     return () => {
@@ -21,6 +25,10 @@ function CardComponent(props) {
     color:'grey'
   }
 
+  const handleClick = ()=>{
+    navigate(`track/${props.carNo}`, {state:{carNo:props.carNo}});
+  }
+
 
   return (
     <Card style={{ width: '18rem' , margin: '1rem' , display: 'inline-block'}}>
@@ -30,7 +38,7 @@ function CardComponent(props) {
         <Card.Text>
           The vehicle is in {props.location}.
         </Card.Text>
-        <Card.Link href="#" className='btn ' style={threat?btnStyle:btnStyleFalse}>Track Vehicle</Card.Link>
+        <Card.Link onClick={handleClick} href="#" className='btn ' style={threat?btnStyle:btnStyleFalse}>Track Vehicle</Card.Link>
         {threat? <Card.Link href="tel:112" className='btn bg-light'> Call SOS </Card.Link> : ""}
         
       </Card.Body>
