@@ -151,6 +151,11 @@ const StreamingPage = () => {
   //   handleNegoNeedFinal,
   // ]);
 
+  function handleClick(){
+    socket.emit("click","streaming page");
+  }
+
+
   return (
     <div className="SurveliancePageContainer">
       <NavbarComponent/>
@@ -168,7 +173,7 @@ const StreamingPage = () => {
               alt="flat camera circle icon transparent vector"
             />
           </a>
-          <button >Start Streaming</button>
+          <button onClick={handleClick}>Start Streaming</button>
         </div>
       ) : (
         <h2>Streaming</h2>

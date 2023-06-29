@@ -16,6 +16,7 @@ import Webcam from "react-webcam";
 // import getResult from '../api/getResult'
 import axios from "axios";
 
+
 const DriverFeed = () => {
   const carNo = useParams();
   const [show, toggleShow] = useState(false);
@@ -206,6 +207,15 @@ const DriverFeed = () => {
   //   handleNegoNeedIncomming,
   //   handleNegoNeedFinal,
   // ]);
+
+  const socket = useSocket();
+
+  useEffect(() => {
+    socket.on("click",(data)=>{
+      console.log(data);
+    })
+  }, [socket])
+  
 
   return (
     <>
