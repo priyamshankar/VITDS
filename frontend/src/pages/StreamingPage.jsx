@@ -1,3 +1,7 @@
+// earlier survelliancepage renamed to StreamingPage
+
+//this page streams the video feed from inside the car to the owner
+
 import React, { useEffect, useCallback, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
@@ -6,7 +10,7 @@ import { useSocket } from "../Context/SocketProvider";
 import "./css/survelliance.css";
 import NavbarComponent from "../components/NavbarComponent";
 
-const SurveliancePage = () => {
+const StreamingPage = () => {
   const [email, setEmail] = useState("");
   const [room, setRoom] = useState("DL01AB2903");
 
@@ -38,7 +42,7 @@ const SurveliancePage = () => {
       socket.off("room:join", handleJoinRoom);
     };
   }, [socket, handleJoinRoom]);
-  
+
   const [myStream, setMyStream] = useState();
 
   // &&&&&&&&&&&&&&&&************************ partition ********************&&&&&&&&&&&&
@@ -170,7 +174,7 @@ const SurveliancePage = () => {
         <h2>Streaming</h2>
       )}
 
-      {/* {myStream && (
+      {myStream && (
         <div className="streamSurv">
           <ReactPlayer
             playing
@@ -180,9 +184,9 @@ const SurveliancePage = () => {
             url={myStream}
           />
         </div>
-      )} */}
+      )}
     </div>
   );
 };
 
-export default SurveliancePage;
+export default StreamingPage;

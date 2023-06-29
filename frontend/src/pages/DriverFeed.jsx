@@ -1,3 +1,7 @@
+//earlier driverhome page renamed to driverFeed
+
+//this page listens for the streamed data from driver to the owner and can be accessed by the owner from the dashboard.
+
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSocket } from "../Context/SocketProvider";
@@ -12,7 +16,7 @@ import Webcam from "react-webcam";
 // import getResult from '../api/getResult'
 import axios from "axios";
 
-const DriverHome = () => {
+const DriverFeed = () => {
   const carNo = useParams();
   const [show, toggleShow] = useState(false);
   const [isThreat, setisThreat] = useState(null);
@@ -219,7 +223,7 @@ const DriverHome = () => {
             <p>Showing the live feed</p>
           )}
         </div>
-        {/* {myStream && (
+        {myStream && (
           <div className="videoFeedDriverHome">
             <ReactPlayer
               playing
@@ -229,10 +233,10 @@ const DriverHome = () => {
               url={myStream}
             />
           </div>
-        )} */}
+        )}
       </div>
     </>
   );
 };
 
-export default DriverHome;
+export default DriverFeed;
